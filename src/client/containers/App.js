@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
-import MainContainer from './MainContainer'
+import TitleContainer from './TitleContainer';
+import ContentsContainer from './ContentsContainer';
 
 class App extends Component{
     render() {
         return (
             <div>
-                <MainContainer/>
+                <TitleContainer/>
+                <ContentsContainer/>
             </div>
         );
     }

@@ -1,3 +1,19 @@
-#root .main .title {
-    transition: color 0.75s;
+#root {
+    min-width: 800px;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:1rem;
+}
+
+#root>div{
+    display: inline-block;    
+    box-shadow: 0 0 10px 0 grey;
+}
+
+#root .title {
+    border: 0px;
+    margin: 0 20px;
+    transition: color 0.75s;    
 }
