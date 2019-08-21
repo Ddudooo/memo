@@ -2,7 +2,7 @@
     "development" : {
         "username" : "root",
         "password" : "1234",
-        "database" : "to_do",
+        "database" : "test_react",
         "host" : "localhost",
         "dialect" : "mysql",
         "operatorAliases" : false

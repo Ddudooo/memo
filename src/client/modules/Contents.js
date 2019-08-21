@@ -26,13 +26,14 @@ const initialState= {
     contents: 'Please Login first',
     // error:false,
     token: '',
-    status: ''
+    status: 'NONE'
 }
 
 export default handleActions({
     ...pender({
         type: REQUSET_AUTH,
         onPending: (state, action) => {
+            console.log("PEDING LOGIN");
             return {
                 ...state,
                 pending : true,
@@ -50,8 +51,7 @@ export default handleActions({
         },
         onSuccess: (state, action) => {
             const {token} = action.payload.data;
-            console.log("SUCCESS LOGIN");
-            console.log(token);
+            console.log("SUCCESS LOGIN");            
             return {
                 ...state,
                 pending: false,

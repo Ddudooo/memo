@@ -17,6 +17,6 @@ sequelize
         console.error('Unable to connect to the database : ', err);
     });
 
-// db.User = require('./user')(sequelize, Sequelize);
+db.User = require('./user')(sequelize, Sequelize);
 
 module.exports = db;
