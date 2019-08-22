@@ -7,7 +7,7 @@ const outputDirectory = "dist";
  
 module.exports = [{
   entry: {
-    index : ['@babel/polyfill',"./src/client/index.js", "./src/client/index.css"],
+    index : ["@babel/polyfill","./src/client/index.js", "./src/client/index.css"],
   },
   output: {
     path: path.join(__dirname,outputDirectory),
@@ -16,15 +16,29 @@ module.exports = [{
   },
   watch: true,
   module: {
+    //noParse: /proxy-polyfill(\/|\\)src/,    
     rules: [
-      {
+      {         
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules/,        
         use: {
           loader: "babel-loader",
           options:{
-            "presets": ["@babel/preset-env","@babel/preset-react"],
-            "plugins": ["@babel/plugin-proposal-class-properties"]
+            "presets": [
+                ["@babel/preset-env",
+                    { "targets": "> 0.05% or ie >= 8",//"> 0.05%, not dead",
+                      "debug":true,
+                      "useBuiltIns": "usage"
+                    },
+                    
+                ],
+                "@babel/preset-react", 
+                
+            ],
+            "plugins": [
+              "@babel/plugin-proposal-class-properties",
+              "@babel/plugin-transform-template-literals"
+            ]
           }
         }
       },

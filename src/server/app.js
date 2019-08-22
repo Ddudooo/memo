@@ -28,7 +28,8 @@ app.use(session({
   resave:'false',
   saveUninitialized : true
 }))
-app.use(express.static(path.join(__dirname, 'public')));
+var appDir = process.cwd();
+app.use(express.static(path.join(appDir, 'dist')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

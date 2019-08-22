@@ -17,9 +17,26 @@ function postLogin(userID, userPW){
     });
 }
 
-const REQUSET_AUTH = 'REQUSET_AUTH';
+function logout(token){
+    const url = '/logout';
+    console.log(url);
+    console.log('axios logout method');
+    return axios({
+        method: 'post',
+        url : url,
+        data : {
+            token: token
+        }
+    });
+};
 
-export const requsetAuth = createAction(REQUSET_AUTH,postLogin);
+const REQUEST_AUTH = 'REQUEST_AUTH';
+const REQUEST_LOGOUT = 'REQUEST_LOGOUT';
+const COOKIE_CHECK = 'COOKIE_CHECK';
+
+export const requestAuth = createAction(REQUEST_AUTH,postLogin);
+export const requestLogout = createAction(REQUEST_LOGOUT);
+export const cookieCheck = createAction(COOKIE_CHECK);
 
 const initialState= {
     pending:false,
@@ -30,8 +47,25 @@ const initialState= {
 }
 
 export default handleActions({
+    [COOKIE_CHECK]:(state,action)=>{
+        // console.log("TOKEN CHECK"+localStorage.getItem('token'));
+        return {
+            ...state,
+            status: sessionStorage.getItem('token')?'LOGIN':'NONE'
+        }
+    },
+    [REQUEST_LOGOUT]:(state,action)=>{        
+        sessionStorage.clear();
+        logout(state.token);
+        return{
+            ...state,
+            contents: 'Please Login first',
+            token: '',
+            status: 'NONE',
+        }
+    },
     ...pender({
-        type: REQUSET_AUTH,
+        type: REQUEST_AUTH,
         onPending: (state, action) => {
             console.log("PEDING LOGIN");
             return {
@@ -51,7 +85,8 @@ export default handleActions({
         },
         onSuccess: (state, action) => {
             const {token} = action.payload.data;
-            console.log("SUCCESS LOGIN");            
+            console.log("SUCCESS LOGIN");
+            sessionStorage.setItem('token', token);
             return {
                 ...state,
                 pending: false,

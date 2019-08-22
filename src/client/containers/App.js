@@ -3,14 +3,28 @@ import  {connect} from 'react-redux';
 
 import TitleContainer from './TitleContainer';
 import ContentsContainer from './ContentsContainer';
+import * as contentsActions from  '../modules/Contents';
+import { dispatch } from 'rxjs/internal/observable/pairs';
+import { bindActionCreators } from 'redux';
 
-class App extends Component{    
+
+
+
+class App extends Component{
+    constructor(props){
+        super(props);
+        // console.log(props);
+        this.props.ContentsActions.cookieCheck();
+    }    
 
     isLogin = () => {
         return ( 
             this.props.loginStatus === 'LOGIN' 
             ?
-            <p>LOGIN SUCCESS</p>
+            <p
+            onClick={()=>{this.props.ContentsActions.requestLogout()}}
+            >LOGIN SUCCESS
+            </p>
             : 
             <ContentsContainer/>
             )
@@ -35,5 +49,9 @@ export default connect(
             loginStatus: state.Contents.status
         })
     },
-    null    
+    (dispatch) =>{
+        return({
+            ContentsActions : bindActionCreators(contentsActions, dispatch)
+        })
+    }
 )(App);

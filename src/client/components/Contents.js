@@ -10,11 +10,12 @@ const override = css`
     border-color : red;
 `;
 
-
 const Contents = ({contents, pending,ContentsActions}) =>{
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
-    let loginForm;
+
+    
+    var loginForm;
     if(pending){
         loginForm=
         <div className='sweet-loading'>
@@ -49,8 +50,8 @@ const Contents = ({contents, pending,ContentsActions}) =>{
             </div>
             <button
             onClick={()=>{
-                return ContentsActions.requsetAuth(id,pw);
-            }
+                return ContentsActions.requestAuth(id,pw);
+                }
             }>
                 login
             </button>  

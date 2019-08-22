@@ -19,8 +19,18 @@ const Title = ({title,color, colorInterval, TitleActions}) =>{
             '#f59f00',
             '#f76707'
         ];
-        let colorIndex=Math.floor(Math.random()*13);    
-        console.log(Math.random()*13);
+        var byteArray = new Uint8Array(1);
+        if(window.crypto){
+            window.crypto.getRandomValues(byteArray);
+        }        
+        var randomNum = '0.' + byteArray[0].toString();
+        // const random = new Random();
+        // var randomNum = random.Random();
+        // const math = Math.random();
+
+        // var random = ()=>Math.random();
+
+        var colorIndex = Math.floor(randomNum * 13) + 1;
         console.log(colors[colorIndex]);
         return colors[colorIndex];
     }
